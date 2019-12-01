@@ -1,0 +1,16 @@
+{
+  "name": "gamestore",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "client": "cd gamestore && npm start",
+    "clientDependencies": "cd gamestore && npm install",
+    "server": "cd server && nodemon .",
+    "serverDependencies": "cd server && npm install",
+    "depInstall": "concurrently \"npm run clientDependencies\" \"npm run serverDependencies\"",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+    },
+  "devDependencies": {
+    "concurrently": "^5.0.0"
+  }
+}
