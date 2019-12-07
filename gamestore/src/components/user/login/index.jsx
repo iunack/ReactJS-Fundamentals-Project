@@ -1,5 +1,7 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
+import userService from "../../../services/user-service";
 import axios from "axios";
+import Navbar from "../../common/navbar";
 
 class Login extends Component {
   constructor(props, context) {
@@ -8,21 +10,42 @@ class Login extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
+    let user = { username: "test", password: "test" };
 
-    console.log(
-      axios
-        .get("http://localhost:9999/api/user/5dacbf1624f00c32c8810ca4")
-        .then(res => console.log(res.data))
-        .catch(err => console.error(err))
-    );
+    userService.login(user).then(res => {
+      console.log(res);
+    });
+    
+    this.props.history.push({
+      // pathname: "/logout",
+      // search: "?query=abc",
+      state: {
+        user: {
+          username: "adfadfadfadfadfad",
+          password: "user"
+        }
+      }
+    });
   };
 
   render() {
+    console.log("login");
+    console.log(this.props.history);
+
     return (
-      <div>
-        <span>Login</span>
-        <button onClick={this.handleSubmit}>Click</button>
-      </div>
+      <Fragment>
+        <Navbar propss={this.props} />
+        <form onSubmit={this.handleSubmit}>
+          username
+          <br />
+          <input type="text" name="firstname" />
+          <br />
+          Last name:
+          <br />
+          <input type="text" name="lastname" />
+          <button type="submit">Login</button>
+        </form>
+      </Fragment>
     );
   }
 }

@@ -5,6 +5,8 @@ const utils = require("../utils");
 module.exports = {
   get: {
     all: (req, res, next) => {
+      console.log(req);
+
       models.User.find()
         .then(users => res.send(users))
         .catch(next);
@@ -22,6 +24,8 @@ module.exports = {
 
   post: {
     register: (req, res, next) => {
+      console.log("registriram se");
+
       const { username, password } = req.body;
       models.User.create({ username, password })
         .then(createdUser => res.send(createdUser))
@@ -30,6 +34,12 @@ module.exports = {
 
     login: (req, res, next) => {
       const { username, password } = req.body;
+      console.log("logwam se");
+
+      console.log(username + " " + password);
+
+      console.log("lognah se");
+
       models.User.findOne({ username })
         .then(user => Promise.all([user, user.matchPassword(password)]))
         .then(([user, match]) => {

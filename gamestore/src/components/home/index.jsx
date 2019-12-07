@@ -1,7 +1,8 @@
 import React from "react";
+import Navbar from "../common/navbar";
 
-function Home() {
-  return <div>Welcome to my page!</div>;
+function Home(props) {
+  return <Navbar propss={props}>Welcome to my page!</Navbar>;
 }
 
 export default Home;
