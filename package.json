@@ -9,8 +9,11 @@
     "serverDependencies": "cd server && npm install",
     "depInstall": "concurrently \"npm run clientDependencies\" \"npm run serverDependencies\"",
     "dev": "concurrently \"npm run server\" \"npm run client\""
-    },
+  },
   "devDependencies": {
     "concurrently": "^5.0.0"
+  },
+  "dependencies": {
+    "react-router-bootstrap": "^0.25.0"
   }
 }
