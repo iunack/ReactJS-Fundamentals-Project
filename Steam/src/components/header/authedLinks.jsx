@@ -1,22 +1,38 @@
-import React, { Fragment } from "react";
-import { NavItem, NavLink, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from "reactstrap";
+import React, { Fragment, useContext } from "react";
+import { AuthContext } from "../contexts/ContextWrapper";
+import {
+  NavItem,
+  NavLink,
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem
+} from "reactstrap";
 import { LinkContainer } from "react-router-bootstrap";
 
+const AuthedNavlinks = (props) => {
+  const [contextUser] = useContext(AuthContext);
+  const amount = contextUser.amount;
+  const username = contextUser.username;
 
-const AuthedNavlinks = () => {
   return (
     <Fragment>
       <NavItem>
+        <LinkContainer to="/games">
+          <NavLink>All Games</NavLink>
+        </LinkContainer>
+      </NavItem>
+      <NavItem>
         <LinkContainer to="/addMoney">
-          <NavLink>100,00 $</NavLink>
+          <NavLink>{amount} $</NavLink>
         </LinkContainer>
       </NavItem>
       <UncontrolledDropdown nav inNavbar>
         <DropdownToggle nav caret>
-          MyProfile
+          {`[  Hallo ${username}  ]`}
         </DropdownToggle>
         <DropdownMenu right>
-          <LinkContainer to="/logout">
+          <LinkContainer to="/my">
             <DropdownItem>My Profile</DropdownItem>
           </LinkContainer>
           <LinkContainer to="/addMoney">

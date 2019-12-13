@@ -27,3 +27,7 @@ input.is-invalid, input.is-valid{
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
+
+.notFound{
+color: black;
+}

@@ -3,23 +3,23 @@ const validateUserRegister = (user, formAtributes) => {
   let isValid = true;
   let result = {};
 
-  if (username.length <= 3) {
+  if (username.length < 3) {
     result = {
       ...result,
       ...formAtributes,
       isUsernameValid: "is-invalid",
-      usernameValidationMessage: "Username must be longer than 3 symbols!",
+      usernameValidationMessage: "Username must be at least 3 symbols!",
       usernameValidationFeedback: false
     };
     isValid = false;
   }
 
   //Password
-  if (password.length <= 4) {
+  if (password.length < 4) {
     result = {
       ...formAtributes,
       isPasswordValid: "is-invalid",
-      passwordValidationMessage: "Password must be longer than 4 symbols!",
+      passwordValidationMessage: "Password must be at least 4 symbols!",
       passwordValidationFeedback: false,
       ...result,
     };

@@ -1,18 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav } from "reactstrap";
 import { LinkContainer } from "react-router-bootstrap";
 
 import Search from "../search";
-import AuthedNavlinks from "./authedLinks";
-import UnAuthedNavlinks from "./unAuthedLinks";
+import AuthedNavlinks from "./AuthedLinks";
+import UnAuthedNavlinks from "./UnAuthedLinks";
+import { AuthContext } from "../contexts/ContextWrapper";
 
 const NavigationHeader = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [contextUser] = useContext(AuthContext);
 
+  const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
 
-  let user = false;
-  const isLoggedIn = user;
+  const isLoggedIn = contextUser.isLoggedIn;
 
   return (
     <Navbar className="cust-nav bg-primary" color="light" light expand="md">

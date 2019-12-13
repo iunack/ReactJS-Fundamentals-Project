@@ -1,16 +1,27 @@
 import axios from "axios";
-const loginApiUrl = "http://localhost:9999/api/user/login";
+import { get } from "http";
+const baseApiUserUrl = "http://localhost:9999/api/user";
 
 const userService = {
-  login(user) {
-    return axios.post(loginApiUrl, user).then(res => {
-      return res;
+  async login(user) {
+    return await axios.post(`${baseApiUserUrl}/login`, user, {
+      withCredentials: true
     });
   },
-  register(body) {},
-  logout() {},
-  get() {},
-  
+  async register(user) {
+    return await axios.post(`${baseApiUserUrl}/register`, user, {
+      withCredentials: true
+    });
+  },
+  async logout() {
+    return await axios.post(`${baseApiUserUrl}/logout`);
+  },
+  async get(id) {
+    return await axios.get(`${baseApiUserUrl}/${id}`);
+  },
+  async getAll() {
+    return await axios(baseApiUserUrl);
+  }
 };
 
 export default userService;

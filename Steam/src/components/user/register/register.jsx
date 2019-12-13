@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Button,
   Form,
@@ -8,8 +8,11 @@ import {
   FormFeedback,
   Badge
 } from "reactstrap";
-import formValidator from "../../../services/form-validator";
-import validateUserRegister from "../../../services/validateUserRegister";
+import formValidator from "../../../utils/form-validator";
+import validateUserRegister from "../../../utils/validateUserRegister";
+import userService from "../../../services/user-service";
+import notify from "../../../services/notify";
+
 
 const Register = props => {
   //user Initial state
@@ -33,24 +36,45 @@ const Register = props => {
     rePassValidationMessage: ""
   });
 
-  const handleSumbit = event => {
+  const [data, setData] = useState({});
+
+  const handleSumbit = async event => {
     event.preventDefault();
     const atributes = validateUserRegister(user, formAtributes);
     if (!atributes.isValid) {
       setAtributes(atributes.result);
-
       return;
     }
-    console.log(props);
-    
-    props.history.push("/login");
+
+    userService
+      .register({
+        username: user.username,
+        password: user.password
+      })
+      .then(serverResponse => {
+        notify.success(serverResponse.data.message);
+        props.history.push("/login");
+      })
+      .catch(err => {
+        notify.error(err);
+      });
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await userService.getAll();
+      setData(result.data);
+    };
+
+    fetchData();
+  }, [setData]);
 
   const handleChange = event => {
     user[event.target.name] = event.target.value;
     setUser(user);
-    let atributes = formValidator.register(event, user, formAtributes);
 
+    const isTaken = data.map(x => x.username).indexOf(user.username) !== -1;
+    let atributes = formValidator.register(event, user, formAtributes, isTaken);
     setAtributes(atributes);
   };
 

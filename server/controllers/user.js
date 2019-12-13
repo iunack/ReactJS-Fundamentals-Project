@@ -5,8 +5,6 @@ const utils = require("../utils");
 module.exports = {
   get: {
     all: (req, res, next) => {
-      console.log(req);
-
       models.User.find()
         .then(users => res.send(users))
         .catch(next);
@@ -24,32 +22,49 @@ module.exports = {
 
   post: {
     register: (req, res, next) => {
-      console.log("registriram se");
-
       const { username, password } = req.body;
+      if (username.length <= 3 && password.length <= 4) {
+        res.send({ message: "Wrong credentials!" });
+        return;
+      }
       models.User.create({ username, password })
-        .then(createdUser => res.send(createdUser))
+        .then(createdUser =>
+          res.send({
+            user: createdUser,
+            message:
+              "You have been registred! Congats! Please log in your account!"
+          })
+        )
         .catch(next);
     },
 
     login: (req, res, next) => {
       const { username, password } = req.body;
-      console.log("logwam se");
-
-      console.log(username + " " + password);
-
-      console.log("lognah se");
-
       models.User.findOne({ username })
-        .then(user => Promise.all([user, user.matchPassword(password)]))
+        .then(user => {
+          if (!user) {
+            res.status(404);
+            res.send(JSON.stringify("Invalid username or password"));
+            return;
+          }
+
+          return Promise.all([user, user.matchPassword(password)]);
+        })
         .then(([user, match]) => {
           if (!match) {
-            res.status(401).send("Invalid password");
+            res.status(401).send({ message: "Invalid username or password" });
             return;
           }
 
           const token = utils.jwt.createToken({ id: user._id });
-          res.cookie(config.authCookieName, token).send(user);
+
+          res.cookie(config.authCookieName, token);
+
+          res.send({
+            user,
+            token,
+            message: `Welcome back master ${username} !`
+          });
         })
         .catch(next);
     },
@@ -61,7 +76,9 @@ module.exports = {
       console.log("-".repeat(100));
       models.TokenBlacklist.create({ token })
         .then(() => {
-          res.clearCookie(config.authCookieName).send("Logout successfully!");
+          res
+            .clearCookie(config.authCookieName)
+            .send({ message: "Logout successfully!" });
         })
         .catch(next);
     }
