@@ -8,12 +8,10 @@ import UnAuthedNavlinks from "./UnAuthedLinks";
 import { AuthContext } from "../contexts/ContextWrapper";
 
 const NavigationHeader = () => {
-  const [contextUser] = useContext(AuthContext);
+  const {isLoggedIn} = useContext(AuthContext);
 
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
-
-  const isLoggedIn = contextUser.isLoggedIn;
 
   return (
     <Navbar className="cust-nav bg-primary" color="light" light expand="md">

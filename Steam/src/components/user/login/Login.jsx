@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import { Link } from "react-router-dom";
 import { AuthContext } from "../../contexts/ContextWrapper";
 import formValidator from "../../../utils/form-validator";
 import validateUserLogin from "../../../utils/validateUserLogin";
@@ -15,7 +16,15 @@ import {
 } from "reactstrap";
 
 const Login = props => {
-  const [contextUser, setContextUser] = useContext(AuthContext);
+  const {
+    setUsername,
+    setIsLoggedIn,
+    setUserId,
+    setAmount,
+    setDlGames,
+    setUplGames
+  } = useContext(AuthContext);
+
   const [user, setUser] = useState({
     username: "",
     password: ""
@@ -44,15 +53,16 @@ const Login = props => {
       .login(user)
       .then(res => {
         console.log(res.data);
-        console.log(contextUser);
+
         const loggedInUserData = {
           isLoggedIn: true,
           username: res.data.user.username,
           userId: res.data.user._id,
-          amount: res.data.user.amount
+          amount: res.data.user.amount,
+          uplGames: res.data.user.upGames,
+          dlGames: res.data.user.downGames
         };
 
-        localStorage.setItem("user", JSON.stringify(loggedInUserData));
         setContextUser(loggedInUserData);
         notify.success(res.data.message);
         props.history.push("/");
@@ -62,6 +72,15 @@ const Login = props => {
         notify.error("Wrong username or password!");
       });
   };
+
+  const setContextUser = (loggedInUserData) =>{
+      setIsLoggedIn(true);
+      setUsername(loggedInUserData.username);
+      setUserId(loggedInUserData.userId);
+      setAmount(loggedInUserData.amount);
+      setUplGames(loggedInUserData.uplGames);
+      setDlGames(loggedInUserData.dlGames);
+  }
 
   const handleChange = event => {
     user[event.target.name] = event.target.value;
@@ -113,6 +132,9 @@ const Login = props => {
         </FormFeedback>
       </FormGroup>
       <Button color="primary">Login</Button>
+      <div>
+        Have no account in Steam? <Link to="/register">Register</Link>
+      </div>
     </Form>
   );
 };

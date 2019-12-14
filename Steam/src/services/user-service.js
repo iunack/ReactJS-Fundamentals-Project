@@ -1,26 +1,41 @@
 import axios from "axios";
-import { get } from "http";
 const baseApiUserUrl = "http://localhost:9999/api/user";
 
 const userService = {
-  async login(user) {
-    return await axios.post(`${baseApiUserUrl}/login`, user, {
+  login(user) {
+    return axios.post(`${baseApiUserUrl}/login`, user, {
       withCredentials: true
     });
   },
-  async register(user) {
-    return await axios.post(`${baseApiUserUrl}/register`, user, {
+
+  register(user) {
+    return axios.post(`${baseApiUserUrl}/register`, user, {
       withCredentials: true
     });
   },
-  async logout() {
-    return await axios.post(`${baseApiUserUrl}/logout`);
+
+  logout() {
+    return axios.post(`${baseApiUserUrl}/logout`,{}, {
+      withCredentials: true
+    });
   },
-  async get(id) {
-    return await axios.get(`${baseApiUserUrl}/${id}`);
+
+  get(id) {
+    return axios.get(`${baseApiUserUrl}/${id}`);
   },
-  async getAll() {
-    return await axios(baseApiUserUrl);
+
+  addMoney(id, amount) {
+    return axios.put(`${baseApiUserUrl}/${id}`, amount, {
+      withCredentials: true
+    });
+  },
+
+  auth() {
+    return axios.get(`${baseApiUserUrl}/auth`, {withCredentials:true});
+  },
+
+  getAll() {
+    return axios(baseApiUserUrl);
   }
 };
 

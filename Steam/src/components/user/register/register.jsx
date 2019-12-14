@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import {
   Button,
   Form,
@@ -12,7 +13,6 @@ import formValidator from "../../../utils/form-validator";
 import validateUserRegister from "../../../utils/validateUserRegister";
 import userService from "../../../services/user-service";
 import notify from "../../../services/notify";
-
 
 const Register = props => {
   //user Initial state
@@ -67,7 +67,7 @@ const Register = props => {
     };
 
     fetchData();
-  }, [setData]);
+  }, []);
 
   const handleChange = event => {
     user[event.target.name] = event.target.value;
@@ -139,6 +139,9 @@ const Register = props => {
         </FormFeedback>
       </FormGroup>
       <Button color="success">Register</Button>
+      <div>
+        You have account in Steam? <Link to="/login">Log in</Link>
+      </div>
     </Form>
   );
 };

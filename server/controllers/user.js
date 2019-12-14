@@ -9,6 +9,7 @@ module.exports = {
         .then(users => res.send(users))
         .catch(next);
     },
+
     user: (req, res, next) => {
       const id = req.params.id;
       models.User.findOne({ _id: id })
@@ -17,6 +18,16 @@ module.exports = {
           (user.password = ""), res.send(user);
         })
         .catch(next);
+    },
+
+    auth: (req, res) => {
+      const token = req.cookies[config.authCookieName];
+
+      utils.jwt
+        .verifyToken(token)
+        .then(({ id }) => models.User.findById(id))
+        .then(user => res.send(user))
+        .catch(() => res.status(401).send({message:"UNAUTHORIZED!"}));
     }
   },
 
@@ -86,8 +97,9 @@ module.exports = {
 
   put: (req, res, next) => {
     const id = req.params.id;
-    const { username, password } = req.body;
-    models.User.update({ _id: id }, { username, password })
+    const { amount } = req.body;
+    
+    models.User.update({ _id: id }, { amount })
       .then(updatedUser => res.send(updatedUser))
       .catch(next);
   },

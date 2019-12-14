@@ -1,6 +1,8 @@
 const controllers = require('../controllers/');
 const router = require('express').Router();
 
+router.get('/auth', controllers.user.get.auth);
+
 router.get('/', controllers.user.get.all);
 
 router.get('/:id', controllers.user.get.user);

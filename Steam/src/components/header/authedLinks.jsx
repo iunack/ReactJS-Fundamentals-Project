@@ -10,10 +10,8 @@ import {
 } from "reactstrap";
 import { LinkContainer } from "react-router-bootstrap";
 
-const AuthedNavlinks = (props) => {
-  const [contextUser] = useContext(AuthContext);
-  const amount = contextUser.amount;
-  const username = contextUser.username;
+const AuthedNavlinks = props => {
+  const { username, amount } = useContext(AuthContext);
 
   return (
     <Fragment>
@@ -23,22 +21,20 @@ const AuthedNavlinks = (props) => {
         </LinkContainer>
       </NavItem>
       <NavItem>
-        <LinkContainer to="/addMoney">
           <NavLink>{amount} $</NavLink>
-        </LinkContainer>
       </NavItem>
       <UncontrolledDropdown nav inNavbar>
         <DropdownToggle nav caret>
           {`[  Hallo ${username}  ]`}
         </DropdownToggle>
         <DropdownMenu right>
-          <LinkContainer to="/my">
+          <LinkContainer to="/user/profile">
             <DropdownItem>My Profile</DropdownItem>
           </LinkContainer>
-          <LinkContainer to="/addMoney">
+          <LinkContainer to="/user/addMoney">
             <DropdownItem>Add Money</DropdownItem>
           </LinkContainer>
-          <LinkContainer to="/addGame">
+          <LinkContainer to="/game/create">
             <DropdownItem>Add Game</DropdownItem>
           </LinkContainer>
           <DropdownItem divider />

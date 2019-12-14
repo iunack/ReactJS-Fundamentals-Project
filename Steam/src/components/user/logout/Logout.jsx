@@ -1,18 +1,34 @@
 import React, { useContext } from "react";
 import userService from "../../../services/user-service";
 import notify from "../../../services/notify";
-import { AuthContext, initalUser } from "../../contexts/ContextWrapper";
+import { AuthContext, defaultUserContext } from "../../contexts/ContextWrapper";
 import { Redirect } from "react-router-dom";
 
-const Logout = () => {
-  let [contextUser, setContextUser] = useContext(AuthContext);
+const Logout = (props) => {
+  const {
+    setUsername,
+    setIsLoggedIn,
+    setUserId,
+    setAmount,
+    setDlGames,
+    setUplGames
+  } = useContext(AuthContext);
   
+  const setDefaultContextUser = () =>{
+    setIsLoggedIn(true);
+    setUsername("");
+    setUserId("");
+    setAmount(0);
+    setUplGames([]);
+    setDlGames([]);
+}
+
   userService
     .logout()
     .then(res => {
-      localStorage.removeItem("user");
-      setContextUser(initalUser);
+     setDefaultContextUser();
       notify.success(res.data.message);
+      window.location.reload();
     })
     .catch(err => {
       notify.error(err);

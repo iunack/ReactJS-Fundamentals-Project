@@ -1,11 +1,27 @@
-import React, {useContext} from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { Row } from "reactstrap";
+import GameCard from "../game/GameCard";
+import GrowingSpinner from "../../components/Spinner/GrowingSpinner";
+import gameService from "../../services/game-services";
 
-import { AuthContext } from "../contexts/ContextWrapper";
 function Home(props) {
-  const [contextUser] = useContext(AuthContext);
-  console.log(contextUser);
-  
-  return <div>HomePage</div>;
+  const [games, setGames] = useState(null);
+
+  useEffect(() => {
+    gameService.all().then(games => {
+      setGames(Object.values(games.data));
+    });
+  }, []);
+
+  return (
+    <div> { games ? 
+      <Row>
+        {games.map(game => (
+          <GameCard key={game._id} {...game}/>
+        ))}
+      </Row> : <GrowingSpinner /> }
+    </div>
+  );
 }
 
 export default Home;

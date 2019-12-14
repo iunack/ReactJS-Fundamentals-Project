@@ -16,49 +16,41 @@ const gameSchema = new Schema({
 
   price: {
     type: Number,
+    required: true,
+    default: 0
+  },
+
+  image: {
+    type: String,
     required: true
   },
 
-  img: {
-    data: Buffer,
-    contentType: String
-  },
-
-  rating: {
-    type: Number
-  },
-
-  pegirating: {
-    type: Number,
+  genre: {
+    type: String,
     required: true
   },
 
-  sysrequirements: [
-    {
-      os: { type: String },
-      processor: { type: Number },
-      memory: { type: Number },
-      graphics: { type: String },
-      storage: { type: Number }
-    }
-  ],
+  recommended: {
+    type: Boolean,
+    default: false
+  },
 
-  comments: [
-    {
-      type: String,
-      user: {
-        type: ObjectId,
-        ref: "User"
-      }
-    }
-  ],
+  platform: {
+    type: String,
+    required: true
+  },
+
+  date: {
+    type: Date,
+    default: Date.now
+  },
 
   uploader: {
     type: ObjectId,
     ref: "User"
   },
 
-  downloader: [
+  downloaders: [
     {
       type: ObjectId,
       ref: "User"

@@ -3,7 +3,7 @@ import NavigationHeader from "./components/header/Navigation";
 import NavigationRouter from "./NavigationRouter";
 import NotifyContainer from "./components/notifications/NotifyContainer";
 import Footer from "./components/footer/Footer";
-import {AuthProvider} from "./components/contexts/ContextWrapper";
+import { AuthProvider } from "./components/contexts/ContextWrapper";
 
 import { Col, Container, Row } from "reactstrap";
 import "./style.css";
