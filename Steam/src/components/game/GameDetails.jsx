@@ -4,13 +4,8 @@ import gameServices from "../../services/game-services";
 import GrowingSpinner from "../../components/Spinner/GrowingSpinner";
 import {
   Card,
-  CardImg,
-  CardText,
   CardBody,
-  CardLink,
   Col,
-  CardTitle,
-  CardSubtitle,
   Button,
   CardHeader,
   CardFooter
@@ -63,7 +58,7 @@ const GameDetails = props => {
           </CardBody>
           <img
             width="100%"
-            src="https://images.pexels.com/photos/414612/pexels-photo-414612.jpeg"
+            src={game.image}
             alt="Card image cap"
           />
           <CardBody>
@@ -79,7 +74,7 @@ const GameDetails = props => {
               Uploaded on: {new Date(game.date).toLocaleString()}
             </CardFooter>
             {isUploader ? (
-              <Link className="btn btn-warning" to={"/game/edit" + game._id}>
+              <Link className="btn btn-warning" to={"/game/edit/" + game._id}>
                 Edit{" "}
               </Link>
             ) : null}

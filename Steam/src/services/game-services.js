@@ -28,6 +28,16 @@ const gameService = {
         withCredentials: true
       }
     );
+  },
+
+  edit(id, game) {
+    return axios.put(
+      `${baseApiGameUrl}/edit/${id}`,
+      { ...game },
+      {
+        withCredentials: true
+      }
+    );
   }
 };
 

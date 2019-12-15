@@ -11,27 +11,29 @@ import {
 import { LinkContainer } from "react-router-bootstrap";
 
 const AuthedNavlinks = props => {
-  const { username, amount, dlGames, uplGames } = useContext(AuthContext);
+  const { username, amount, userId, dlGames, uplGames } = useContext(
+    AuthContext
+  );
   const uploadCount = uplGames ? uplGames.length : 0;
   const purchaseCount = dlGames ? dlGames.length : 0;
-  
+
   return (
     <Fragment>
       <NavItem>
-          <NavLink>{`[   ${uploadCount}   Uploaded ]`}</NavLink>
+        <NavLink>{`[   ${uploadCount}   Uploaded ]`}</NavLink>
       </NavItem>
       <NavItem>
-          <NavLink>{`[   ${purchaseCount}   Purchased ]`}</NavLink>
+        <NavLink>{`[   ${purchaseCount}   Purchased ]`}</NavLink>
       </NavItem>
       <NavItem>
-          <NavLink>{amount} $</NavLink>
+        <NavLink>{amount} $</NavLink>
       </NavItem>
       <UncontrolledDropdown nav inNavbar>
         <DropdownToggle nav caret>
           {`[  Hallo ${username}  ]`}
         </DropdownToggle>
         <DropdownMenu right>
-          <LinkContainer to="/user/profile">
+          <LinkContainer to={`/user/${userId}`}>
             <DropdownItem>My Profile</DropdownItem>
           </LinkContainer>
           <LinkContainer to="/user/addMoney">

@@ -3,6 +3,8 @@ const models = require("../models");
 module.exports = {
   get: {
     all: (req, res, next) => {
+      //console.log(req.query);
+      
       models.Game.find()
         .populate("uploader")
         .sort({ date: -1 })
@@ -67,6 +69,24 @@ module.exports = {
         res.send({
           game,
           message: "Successfuly purchased!"
+        });
+      } catch (error) {
+        next(error);
+      }
+    },
+    edit: async (req, res, next) => {
+      const id = req.params.id;
+      const { title, genre, platform, description, image, price } = req.body;
+     
+      try {
+        const game = await models.Game.findOneAndUpdate(
+          { _id: id },
+          { title, genre, platform, description, image, price }
+        );
+          
+        res.send({
+          game,
+          message: "Successfuly edited!"
         });
       } catch (error) {
         next(error);

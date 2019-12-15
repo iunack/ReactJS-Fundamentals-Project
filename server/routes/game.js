@@ -10,7 +10,7 @@ router.post('/create', auth(), controllers.game.post);
 
 router.put('/purchase/:id', auth(), controllers.game.put.purchase);
 
-//router.put('/:id', auth(), controllers.game.put);
+router.put('/edit/:id', auth(), controllers.game.put.edit);
 
 router.delete('/:id', auth(), controllers.game.delete);
 

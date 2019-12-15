@@ -4,11 +4,12 @@ import NotFoundPage from "./components/not-found-page/NotFoundPage";
 import Home from "./components/home/Home";
 import Login from "./components/user/login/Login";
 import Register from "./components/user/register/Register";
-import Profile from "./components/user/profile";
+import Profile from "./components/user/profile/Profile";
 import AddAmount from './components/user/amount/AddAmount';
 import Logout from "./components/user/logout/Logout";
 import CreateGame from './components/game/CreateGame';
 import GameDetails from './components/game/GameDetails';
+import GameEdit from './components/game/GameEdit';
 import GamePurchase from './components/game/GamePurchase';
 import { GuestRoute, LoggedInRoute } from "./components/routes/ProtectedRoutes";
 import { AuthContext } from "./components/contexts/ContextWrapper";
@@ -24,11 +25,12 @@ const NavigationRouter = () => {
       <GuestRoute isLoggedIn={isLoggedIn} path="/register" component={Register} />
 
       <LoggedInRoute isLoggedIn={isLoggedIn} path="/logout" component={Logout} />
-      <LoggedInRoute isLoggedIn={isLoggedIn} path="/user/profile" component={Profile} />
+      <LoggedInRoute isLoggedIn={isLoggedIn} path="/user/:id" component={Profile} />
       <LoggedInRoute isLoggedIn={isLoggedIn} path="/user/addMoney" component={AddAmount} />
       <LoggedInRoute isLoggedIn={isLoggedIn} path="/game/create" component={CreateGame} />
       <LoggedInRoute isLoggedIn={isLoggedIn} path="/game/purchase/:id" component={GamePurchase} />
-      <LoggedInRoute isLoggedIn={isLoggedIn} path="/game/:id" component={GameDetails} />
+      <LoggedInRoute isLoggedIn={isLoggedIn} path="/game/edit/:id" component={GameEdit} />
+      <LoggedInRoute isLoggedIn={isLoggedIn} path="/game/:id" exact component={GameDetails} />
       
 
       <Route component={NotFoundPage} />

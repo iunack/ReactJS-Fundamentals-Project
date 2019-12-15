@@ -13,10 +13,9 @@ module.exports = {
     user: (req, res, next) => {
       const id = req.params.id;
       models.User.findOne({ _id: id })
-        //remove password from response
-        .then(user => {
-          (user.password = ""), res.send(user);
-        })
+        .populate("upgames")
+        .populate("downgames")
+        .then(user => res.send(user))
         .catch(next);
     },
 

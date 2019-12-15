@@ -7,14 +7,14 @@ import notify from "../../services/notify";
 import { AuthContext } from "../contexts/ContextWrapper";
 
 function Home(props) {
-  const {uplGames ,setUplGames } = useContext(AuthContext);
+  const { uplGames, setUplGames } = useContext(AuthContext);
   const [games, setGames] = useState(null);
 
   const deleteClickHandler = ({ id, title }) => {
     gameService
       .delete(id)
       .then(res => {
-        setUplGames(uplGames.filter(x => x != id.toString()));
+        setUplGames(uplGames.filter(x => x !== id.toString()));
         notify.success(`${title} was removed successfuly!`);
         props.history.push("/");
       })

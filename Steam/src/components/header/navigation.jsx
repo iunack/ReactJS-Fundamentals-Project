@@ -2,7 +2,6 @@ import React, { useState, useContext } from "react";
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav } from "reactstrap";
 import { LinkContainer } from "react-router-bootstrap";
 
-import Search from "../search";
 import AuthedNavlinks from "./AuthedLinks";
 import UnAuthedNavlinks from "./UnAuthedLinks";
 import { AuthContext } from "../contexts/ContextWrapper";
@@ -21,7 +20,6 @@ const NavigationHeader = () => {
       <NavbarToggler onClick={toggle} />
       <Collapse isOpen={isOpen} navbar>
         <Nav className="mr-auto" navbar>
-          <Search />
         </Nav>
         <Nav navbar>
           {isLoggedIn ? <AuthedNavlinks /> : <UnAuthedNavlinks />}
