@@ -25,6 +25,10 @@ const userService = {
   },
 
   addMoney(id, amount) {
+    console.log('in service');
+    
+    console.log(id);
+    
     return axios.put(`${baseApiUserUrl}/${id}`, amount, {
       withCredentials: true
     });

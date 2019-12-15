@@ -13,7 +13,7 @@ const CreateGame = props => {
   const [platform, setPlatform] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("");
-  const [price, setPrice] = useState("");
+  const [price, setPrice] = useState(0);
   const [errors, setErrors] = useState({});
 
   const handleSubmit = e => {

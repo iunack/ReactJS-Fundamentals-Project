@@ -13,8 +13,6 @@ module.exports = {
     user: (req, res, next) => {
       const id = req.params.id;
       models.User.findOne({ _id: id })
-        .populate("upgames")
-        .populate("downgames")
         .then(user => res.send(user))
         .catch(next);
     },
@@ -96,9 +94,10 @@ module.exports = {
 
   put: (req, res, next) => {
     const id = req.params.id;
-    const { amount } = req.body;
+    const { amount } = req.body;    
+    console.log(req.body);
     
-    models.User.update({ _id: id }, { amount })
+    models.User.updateOne({ _id: id }, amount)
       .then(updatedUser => res.send(updatedUser))
       .catch(next);
   },

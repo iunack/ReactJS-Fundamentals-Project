@@ -25,8 +25,8 @@ const NavigationRouter = () => {
       <GuestRoute isLoggedIn={isLoggedIn} path="/register" component={Register} />
 
       <LoggedInRoute isLoggedIn={isLoggedIn} path="/logout" component={Logout} />
+      <LoggedInRoute isLoggedIn={isLoggedIn} path="/user/addMoney" exact component={AddAmount} />
       <LoggedInRoute isLoggedIn={isLoggedIn} path="/user/:id" component={Profile} />
-      <LoggedInRoute isLoggedIn={isLoggedIn} path="/user/addMoney" component={AddAmount} />
       <LoggedInRoute isLoggedIn={isLoggedIn} path="/game/create" component={CreateGame} />
       <LoggedInRoute isLoggedIn={isLoggedIn} path="/game/purchase/:id" component={GamePurchase} />
       <LoggedInRoute isLoggedIn={isLoggedIn} path="/game/edit/:id" component={GameEdit} />

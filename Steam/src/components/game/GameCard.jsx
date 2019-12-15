@@ -39,7 +39,7 @@ const GameCard = props => {
           alt="Card image cap"
         />
         <CardBody>
-          <CardFooter style={{ fontSize: 23 }}>Price: {props.price}</CardFooter>
+          <CardFooter style={{ fontSize: 23 }}>Price: {props.price} $</CardFooter>
           <CardFooter>{props.description}</CardFooter>
           <Link className="btn btn-success" to={"/game/" + props._id}>
             Details{" "}

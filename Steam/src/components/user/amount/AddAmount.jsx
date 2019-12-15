@@ -6,30 +6,32 @@ import notify from "../../../services/notify";
 const AddAmount = props => {
   const [money, setMoney] = useState(0);
   const { userId, amount, setAmount, uplGames } = useContext(AuthContext);
+  console.log(userId);
   
   const changeMoney = e => {
-    const newValue = e.target.value;
-    setMoney(newValue);
+    setMoney(e.target.value);
   };
-console.log(uplGames);
+  console.log(uplGames);
 
-  const addmoney = e => {
+  const onClickHandler = e => {
     e.preventDefault();
     const newAmount = Number(amount) + Number(money);
-    userService.addMoney(userId, {amount: newAmount}).then(res => {
-      
-      setAmount(newAmount);
-      console.log(res);
-      notify.info(`${money} $ was added in to your balance! Enjoy gaming!`)
-      props.history.push("/");
-    }).catch(err => notify.error(err));
+    userService
+      .addMoney(userId, { amount: newAmount })
+      .then(res => {
+        setAmount(newAmount);
+        console.log(res);
+        notify.info(`${money} $ was added in to your balance! Enjoy gaming!`);
+        props.history.push("/");
+      })
+      .catch(err => notify.error(err));
   };
 
   return (
     <div>
       Add money today, spend money tomorow!
       <input type="number" onChange={changeMoney} value={money} />
-      <button onClick={addmoney}>Add Money</button>
+      <button onClick={onClickHandler}>Add Money</button>
     </div>
   );
 };
