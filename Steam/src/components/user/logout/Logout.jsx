@@ -4,7 +4,7 @@ import notify from "../../../services/notify";
 import { AuthContext, defaultUserContext } from "../../contexts/ContextWrapper";
 import { Redirect } from "react-router-dom";
 
-const Logout = (props) => {
+const Logout = props => {
   const {
     setUsername,
     setIsLoggedIn,
@@ -13,22 +13,21 @@ const Logout = (props) => {
     setDlGames,
     setUplGames
   } = useContext(AuthContext);
-  
-  const setDefaultContextUser = () =>{
-    setIsLoggedIn(true);
+
+  const setDefaultContextUser = () => {
+    setIsLoggedIn(false);
     setUsername("");
     setUserId("");
     setAmount(0);
     setUplGames([]);
     setDlGames([]);
-}
+  };
 
   userService
     .logout()
     .then(res => {
-     setDefaultContextUser();
+      setDefaultContextUser();
       notify.success(res.data.message);
-      window.location.reload();
     })
     .catch(err => {
       notify.error(err);

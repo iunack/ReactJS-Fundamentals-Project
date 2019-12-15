@@ -6,8 +6,8 @@ export const defaultUserContext = {
   username: "",
   userId: "",
   amount: 0,
-  dlGames: [],
-  uplGames: []
+  dlGames: null,
+  uplGames: null
 };
 
 export const AuthContext = createContext(defaultUserContext);
@@ -17,12 +17,12 @@ export const AuthProvider = props => {
   const [username, setUsername] = useState("");
   const [userId, setUserId] = useState("");
   const [amount, setAmount] = useState(0);
-  const [dlGames, setDlGames] = useState([]);
-  const [uplGames, setUplGames] = useState([]);
+  const [dlGames, setDlGames] = useState(null);
+  const [uplGames, setUplGames] = useState(null);
 
   //If page refresh and user is logged in will not log out
   useEffect(() => {
-    userService
+      userService
       .auth()
       .then(res => {
         console.log(res.data);
@@ -34,6 +34,7 @@ export const AuthProvider = props => {
         setDlGames(res.data.downgames);
       })
       .catch(err => console.log(err));
+
   }, []);
 
   return (

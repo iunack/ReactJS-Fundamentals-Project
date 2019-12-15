@@ -11,14 +11,17 @@ import {
 import { LinkContainer } from "react-router-bootstrap";
 
 const AuthedNavlinks = props => {
-  const { username, amount } = useContext(AuthContext);
-
+  const { username, amount, dlGames, uplGames } = useContext(AuthContext);
+  const uploadCount = uplGames ? uplGames.length : 0;
+  const purchaseCount = dlGames ? dlGames.length : 0;
+  
   return (
     <Fragment>
       <NavItem>
-        <LinkContainer to="/games">
-          <NavLink>All Games</NavLink>
-        </LinkContainer>
+          <NavLink>{`[   ${uploadCount}   Uploaded ]`}</NavLink>
+      </NavItem>
+      <NavItem>
+          <NavLink>{`[   ${purchaseCount}   Purchased ]`}</NavLink>
       </NavItem>
       <NavItem>
           <NavLink>{amount} $</NavLink>

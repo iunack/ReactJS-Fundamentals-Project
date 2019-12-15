@@ -10,8 +10,25 @@ const gameService = {
 
   all() {
     return axios.get(baseApiGameUrl);
-  }
+  },
 
+  get(id) {
+    return axios.get(`${baseApiGameUrl}/${id}`);
+  },
+
+  delete(id) {
+    return axios.delete(`${baseApiGameUrl}/${id}`, { withCredentials: true });
+  },
+
+  purchase(id, uId) {
+    return axios.put(
+      `${baseApiGameUrl}/purchase/${id}`,
+      { userId: uId },
+      {
+        withCredentials: true
+      }
+    );
+  }
 };
 
 export default gameService;

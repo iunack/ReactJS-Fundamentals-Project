@@ -6,7 +6,7 @@ import notify from "../../services/notify";
 import { AuthContext } from "../contexts/ContextWrapper";
 
 const CreateGame = props => {
-  const { setUplGames } = useContext(AuthContext);
+  const {uplGames ,setUplGames } = useContext(AuthContext);
 
   const [title, setTitle] = useState("");
   const [genre, setGenre] = useState("");
@@ -36,7 +36,7 @@ const CreateGame = props => {
     }
 
     gameService.create(game).then(res => {
-      setUplGames(upg => upg.concat(res.data._id));
+      setUplGames(upg => upg ? [...upg, res.data._id] : [res.data._id]);
       notify.success(`Congats! You uploaded { ${title} } game!`)
       props.history.push("/");
     });

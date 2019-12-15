@@ -8,6 +8,8 @@ import Profile from "./components/user/profile";
 import AddAmount from './components/user/amount/AddAmount';
 import Logout from "./components/user/logout/Logout";
 import CreateGame from './components/game/CreateGame';
+import GameDetails from './components/game/GameDetails';
+import GamePurchase from './components/game/GamePurchase';
 import { GuestRoute, LoggedInRoute } from "./components/routes/ProtectedRoutes";
 import { AuthContext } from "./components/contexts/ContextWrapper";
 
@@ -25,6 +27,9 @@ const NavigationRouter = () => {
       <LoggedInRoute isLoggedIn={isLoggedIn} path="/user/profile" component={Profile} />
       <LoggedInRoute isLoggedIn={isLoggedIn} path="/user/addMoney" component={AddAmount} />
       <LoggedInRoute isLoggedIn={isLoggedIn} path="/game/create" component={CreateGame} />
+      <LoggedInRoute isLoggedIn={isLoggedIn} path="/game/purchase/:id" component={GamePurchase} />
+      <LoggedInRoute isLoggedIn={isLoggedIn} path="/game/:id" component={GameDetails} />
+      
 
       <Route component={NotFoundPage} />
     </Switch>

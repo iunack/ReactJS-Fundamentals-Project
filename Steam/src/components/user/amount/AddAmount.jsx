@@ -5,12 +5,13 @@ import notify from "../../../services/notify";
 
 const AddAmount = props => {
   const [money, setMoney] = useState(0);
-  const { userId, amount, setAmount } = useContext(AuthContext);
+  const { userId, amount, setAmount, uplGames } = useContext(AuthContext);
   
   const changeMoney = e => {
     const newValue = e.target.value;
     setMoney(newValue);
   };
+console.log(uplGames);
 
   const addmoney = e => {
     e.preventDefault();
